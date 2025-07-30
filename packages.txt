@@ -1,0 +1,4 @@
+poppler-utils
+tesseract-ocr
+ghostscript
+openjdk-17-jre-headless
