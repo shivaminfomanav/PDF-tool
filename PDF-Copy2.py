@@ -348,7 +348,7 @@ show_metadata = st.sidebar.checkbox("Show Page & Method Info", value=True)
 min_value_threshold = st.sidebar.slider("Minimum Value Count", 1, 5, 1)
 
 # Process single file
-if uploaded_file and st.button("🚀 Extract Tables"):
+if uploaded_file and st.button(" Extract Tables"):
     with st.spinner("Extracting tables..."):
         with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
             tmp.write(uploaded_file.read())
@@ -409,7 +409,7 @@ if uploaded_file and st.button("🚀 Extract Tables"):
                 # Download button
                 csv_data = df.to_csv(index=False)
                 st.download_button(
-                    "💾 Download CSV",
+                    " Download CSV",
                     csv_data,
                     f"{uploaded_file.name}_extracted.csv",
                     mime="text/csv"
@@ -436,7 +436,7 @@ if pdf_url and st.button(" Extract from URL"):
                 validation = validate_results(df)
                 st.session_state.results = df
                 
-                st.success(f"✅ Extracted {len(df)} fields from URL!")
+                st.success(f" Extracted {len(df)} fields from URL!")
                 
                 # Display results (same as above)
                 display_df = df.copy()
@@ -472,7 +472,7 @@ if pdf_url and st.button(" Extract from URL"):
             os.unlink(temp_path)
 
 # Process multiple files
-if uploaded_files and st.button("📁 Extract from All Files"):
+if uploaded_files and st.button(" Extract from All Files"):
     all_results = []
     
     progress_bar = st.progress(0)
@@ -532,7 +532,7 @@ if uploaded_files and st.button("📁 Extract from All Files"):
         st.dataframe(display_df[display_cols], use_container_width=True, height=500)
         
         st.download_button(
-            "💾 Download Batch Results",
+            " Download Batch Results",
             combined_df.to_csv(index=False),
             "batch_extracted.csv",
             mime="text/csv"
