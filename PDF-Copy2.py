@@ -330,7 +330,7 @@ def validate_results(df: pd.DataFrame) -> Dict[str, Any]:
 st.markdown("##  Input Options")
 
 # Create tabs
-tab1, tab2, tab3 = st.tabs([" Upload File", "🔗 URL", " Multiple Files"])
+tab1, tab2, tab3 = st.tabs([" Upload File", " URL", " Multiple Files"])
 
 with tab1:
     uploaded_file = st.file_uploader("Upload PDF", type=["pdf"])
@@ -371,18 +371,18 @@ if uploaded_file and st.button("🚀 Extract Tables"):
                 
                 # Show summary
                 col1, col2, col3, col4 = st.columns(4)
-                col1.metric("📊 Fields", validation['total_rows'])
-                col2.metric("🔢 Unique", validation['unique_fields'])
-                col3.metric("📄 Pages", validation['pages_covered'])
-                col4.metric("🛠️ Methods", validation['methods_used'])
+                col1.metric(" Fields", validation['total_rows'])
+                col2.metric(" Unique", validation['unique_fields'])
+                col3.metric(" Pages", validation['pages_covered'])
+                col4.metric(" Methods", validation['methods_used'])
                 
                 if validation['issues']:
-                    st.warning(f"⚠️ Issues: {', '.join(validation['issues'])}")
+                    st.warning(f" Issues: {', '.join(validation['issues'])}")
                 else:
-                    st.success("✅ Extraction completed successfully!")
+                    st.success(" Extraction completed successfully!")
                 
                 # Display results
-                st.markdown("## 📈 Extracted Data")
+                st.markdown("##  Extracted Data")
                 
                 # Prepare display DataFrame
                 display_df = df.copy()
@@ -421,7 +421,7 @@ if uploaded_file and st.button("🚀 Extract Tables"):
             os.unlink(temp_path)
 
 # Process URL
-if pdf_url and st.button("🔗 Extract from URL"):
+if pdf_url and st.button(" Extract from URL"):
     try:
         with st.spinner("Downloading PDF..."):
             temp_path = download_pdf_from_url(pdf_url)
@@ -457,16 +457,16 @@ if pdf_url and st.button("🔗 Extract from URL"):
                 st.dataframe(display_df[display_cols], use_container_width=True)
                 
                 st.download_button(
-                    "💾 Download CSV",
+                    " Download CSV",
                     df.to_csv(index=False),
                     "url_extracted.csv",
                     mime="text/csv"
                 )
             else:
-                st.error("❌ No financial data extracted from URL")
+                st.error(" No financial data extracted from URL")
     
     except Exception as e:
-        st.error(f"❌ Error: {e}")
+        st.error(f" Error: {e}")
     finally:
         if 'temp_path' in locals():
             os.unlink(temp_path)
@@ -502,7 +502,7 @@ if uploaded_files and st.button("📁 Extract from All Files"):
         combined_df = pd.concat(all_results, ignore_index=True)
         st.session_state.results = combined_df
         
-        st.success(f"✅ Batch processing complete! {len(combined_df)} total fields extracted")
+        st.success(f" Batch processing complete! {len(combined_df)} total fields extracted")
         
         # Summary by file
         summary = combined_df.groupby('Source').agg({
@@ -510,11 +510,11 @@ if uploaded_files and st.button("📁 Extract from All Files"):
             'Total': 'sum'
         }).rename(columns={'Field_Name': 'Fields_Count', 'Total': 'Total_Value'})
         
-        st.markdown("## 📊 Summary by File")
+        st.markdown("##  Summary by File")
         st.dataframe(summary, use_container_width=True)
         
         # Display all results
-        st.markdown("## 📈 All Extracted Data")
+        st.markdown("##  All Extracted Data")
         display_df = combined_df.copy()
         
         base_cols = ['Source', 'Field_Name']
@@ -545,14 +545,14 @@ if not uploaded_file and not pdf_url and not uploaded_files:
     st.info("📤 Choose an input method above to start extraction")
     
     st.markdown("""
-    ### ✨ Key Improvements:
+    ###  Key Improvements:
     - **Fixed identical output issue** - Smart field cleaning preserves distinctions
     - **Content-based deduplication** - Tables identified by actual content, not just size  
     - **Column-focused extraction** - Shows field names with their corresponding values
     - **Enhanced validation** - Detects extraction quality issues
     - **Multiple extraction methods** - PDFPlumber, PyMuPDF, Camelot, Tabula
     
-    ### 📊 Output Format:
+    ###  Output Format:
     - **Field_Name**: Cleaned field name (preserves years, categories)
     - **Value_1, Value_2, etc.**: Individual column values
     - **Total**: Sum of all values in the row
