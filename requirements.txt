@@ -15,3 +15,4 @@ pypdf
 python-dateutil
 typing-extensions
 jpype1
+joblib
