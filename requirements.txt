@@ -16,3 +16,5 @@ python-dateutil
 typing-extensions
 jpype1
 joblib
+scikit-learn
+
